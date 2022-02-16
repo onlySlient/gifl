@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  rds:
+    image: redis:latest
+    deploy:
+      replicas: 1
+    ports:
+      - 6379:6379
+  gifl:
+    image: onlyslient/gifl:0.1
+    deploy:
+      replicas: 1
+    ports:
+      - 9999:9999
+    environment:
+      RDS_ADDR: redis://rds:6379
+    depends_on:
+      - rds
